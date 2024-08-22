@@ -6,7 +6,10 @@ const bcrypt = require('bcrypt');
 const User = require('./models/Users');
 const cors=require('cors')
 const app = express();
-app.use(cors())
+const path = require("path");
+
+app.use(cors(
+))
 app.use(express.json());
 
 
@@ -17,9 +20,12 @@ mongoose.connect('mongodb+srv://shaikabzal626:pe41hbP2TJQma2WM@cluster1.gtbu2.mo
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
-app.get('/',(req,res)=>{
-    res.json("Hello")
-  })
+  app.get("/", (req, res) => {
+    app.use(express.static(path.resolve(__dirname, "my-app", "dist")));
+    res.sendFile(path.resolve(__dirname, "my-app", "dist", "index.html"));
+  });
+
+
 
   app.post('/users/register', async (req, res) => {
     const { name, email, password, phone, profession } = req.body;

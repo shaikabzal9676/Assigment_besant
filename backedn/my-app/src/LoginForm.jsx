@@ -8,13 +8,13 @@ const LoginForm = () => {
 const navigate=useNavigate();
   const handleLogin = async () => {
     try {
-      const response = await axios.post("https://assigment-besant-2.onrender.com/login", {
+      const response = await axios.post(`${window.location.origin}/login`, {
         email,
         password,
       });
       if (response.data.success) {
         // Redirect to home page
-        window.location.href = "/home";
+       navigate('/home')
       } else {
         alert("Incorrect email or password. Please try again.");
       }
